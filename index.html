@@ -3,98 +3,112 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>GCash QR</title>
+  <title>Pay with GCash</title>
   <style>
     body {
       margin: 0;
-      font-family: 'Arial', sans-serif;
-      background-color: #f1f3f5;
-    }
-
-    .header {
-      background-color: #0074e4;
-      padding: 20px 0;
-      text-align: center;
-    }
-
-    .header img {
-      height: 30px;
-      vertical-align: middle;
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      background-color: #f5f5f5;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 20px;
     }
 
     .container {
-      max-width: 400px;
       background-color: white;
-      margin: 30px auto;
-      border-radius: 10px;
-      padding: 30px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      border-radius: 12px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+      padding: 30px 20px;
+      max-width: 400px;
+      width: 100%;
+      text-align: center;
     }
 
-    .title {
-      font-weight: bold;
-      margin-bottom: 25px;
-      font-size: 18px;
+    .logo {
+      width: 150px;
+      margin-bottom: 20px;
     }
 
-    .qr-code {
+    h1 {
+      font-size: 24px;
+      margin-bottom: 10px;
+      color: #0057e0;
+    }
+
+    .ref {
+      font-size: 14px;
+      color: #333;
+      margin-bottom: 20px;
+    }
+
+    .qr {
+      width: 100%;
+      max-width: 250px;
+      margin: 0 auto 20px;
+    }
+
+    .loader {
       display: flex;
       justify-content: center;
-      margin: 20px 0;
+      gap: 8px;
     }
 
-    .qr-code img {
-      width: 200px;
-      height: 200px;
-      border: 1px solid #ccc;
-      border-radius: 10px;
+    .loader span {
+      width: 10px;
+      height: 10px;
+      background: #0057e0;
+      border-radius: 50%;
+      animation: bounce 0.6s infinite alternate;
     }
 
-    .next-button {
-      width: 100%;
-      padding: 12px 0;
-      background-color: #cce0ff;
-      color: #fff;
-      font-weight: bold;
-      border: none;
-      border-radius: 25px;
-      margin-top: 20px;
-      cursor: not-allowed;
+    .loader span:nth-child(2) {
+      animation-delay: 0.2s;
     }
 
-    .footer {
-      text-align: center;
-      margin-top: 30px;
-      color: #666;
-      font-size: 14px;
+    .loader span:nth-child(3) {
+      animation-delay: 0.4s;
     }
 
-    .footer a {
-      color: #0074e4;
-      text-decoration: none;
-      font-weight: 500;
+    @keyframes bounce {
+      to {
+        transform: translateY(-10px);
+        opacity: 0.6;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .container {
+        padding: 20px 15px;
+      }
+
+      .logo {
+        width: 120px;
+      }
+
+      h1 {
+        font-size: 20px;
+      }
+
+      .qr {
+        max-width: 200px;
+      }
     }
   </style>
 </head>
 <body>
-
-  <div class="header">
-    <img src="https://gcash.d13jr4j23hog1o.amplifyapp.com/assets/ph/gcash/img/gcash_logo.png" alt="GCash Logo">
-  </div>
-
   <div class="container">
-    <div class="title">Login to pay with GCash</div>
-
-    <div class="qr-code">
-      <img src="qr.png" alt="QR Code">
+    <img src="https://gcash.d13jr4j23hog1o.amplifyapp.com/assets/ph/gcash/img/gcash_logo.png" alt="GCash Logo" class="logo" />
+    <h1>Pay with GCash</h1>
+    <div class="ref">Ref No: 6A29-X9Q1</div>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/d/d0/QR_code_for_mobile_English_Wikipedia.svg" alt="GCash QR Code" class="qr" />
+    <div class="loader">
+      <span></span>
+      <span></span>
+      <span></span>
     </div>
-
-    <button class="next-button" disabled>NEXT</button>
   </div>
-
-  <div class="footer">
-    Don’t have a GCash account? <a href="#">Register now</a>
-  </div>
-
 </body>
 </html>
