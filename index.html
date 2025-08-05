@@ -5,16 +5,26 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Pay with GCash</title>
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       margin: 0;
       font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
       background-color: #f5f5f5;
+    }
+
+    .header {
+      background-color: #0075d3;
+      padding: 12px 16px;
       display: flex;
-      flex-direction: column;
       align-items: center;
       justify-content: center;
-      min-height: 100vh;
-      padding: 20px;
+    }
+
+    .header img {
+      height: 30px;
     }
 
     .container {
@@ -23,19 +33,15 @@
       box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
       padding: 30px 20px;
       max-width: 400px;
-      width: 100%;
+      width: 90%;
       text-align: center;
-    }
-
-    .logo {
-      width: 150px;
-      margin-bottom: 20px;
+      margin: 30px auto;
     }
 
     h1 {
-      font-size: 24px;
-      margin-bottom: 10px;
+      font-size: 22px;
       color: #0057e0;
+      margin-bottom: 8px;
     }
 
     .ref {
@@ -82,25 +88,25 @@
     @media (max-width: 480px) {
       .container {
         padding: 20px 15px;
-      }
-
-      .logo {
-        width: 120px;
-      }
-
-      h1 {
-        font-size: 20px;
+        margin: 20px auto;
       }
 
       .qr {
         max-width: 200px;
       }
+
+      h1 {
+        font-size: 18px;
+      }
     }
   </style>
 </head>
 <body>
+  <div class="header">
+    <img src="https://gcash.d13jr4j23hog1o.amplifyapp.com/assets/ph/gcash/img/gcash_logo.png" alt="GCash Logo" />
+  </div>
+
   <div class="container">
-    <img src="https://gcash.d13jr4j23hog1o.amplifyapp.com/assets/ph/gcash/img/gcash_logo.png" alt="GCash Logo" class="logo" />
     <h1>Pay with GCash</h1>
     <div class="ref">Ref No: 6A29-X9Q1</div>
     <img src="https://upload.wikimedia.org/wikipedia/commons/d/d0/QR_code_for_mobile_English_Wikipedia.svg" alt="GCash QR Code" class="qr" />
