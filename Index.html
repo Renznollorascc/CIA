@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>GCash QR</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Arial', sans-serif;
+      background-color: #f1f3f5;
+    }
+
+    .header {
+      background-color: #0074e4;
+      padding: 20px 0;
+      text-align: center;
+    }
+
+    .header img {
+      height: 30px;
+      vertical-align: middle;
+    }
+
+    .container {
+      max-width: 400px;
+      background-color: white;
+      margin: 30px auto;
+      border-radius: 10px;
+      padding: 30px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+
+    .title {
+      font-weight: bold;
+      margin-bottom: 25px;
+      font-size: 18px;
+    }
+
+    .qr-code {
+      display: flex;
+      justify-content: center;
+      margin: 20px 0;
+    }
+
+    .qr-code img {
+      width: 200px;
+      height: 200px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+    }
+
+    .next-button {
+      width: 100%;
+      padding: 12px 0;
+      background-color: #cce0ff;
+      color: #fff;
+      font-weight: bold;
+      border: none;
+      border-radius: 25px;
+      margin-top: 20px;
+      cursor: not-allowed;
+    }
+
+    .footer {
+      text-align: center;
+      margin-top: 30px;
+      color: #666;
+      font-size: 14px;
+    }
+
+    .footer a {
+      color: #0074e4;
+      text-decoration: none;
+      font-weight: 500;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <img src="https://gcash.d13jr4j23hog1o.amplifyapp.com/assets/ph/gcash/img/gcash_logo.png" alt="GCash Logo">
+  </div>
+
+  <div class="container">
+    <div class="title">Login to pay with GCash</div>
+
+    <div class="qr-code">
+      <img src="qr.png" alt="QR Code">
+    </div>
+
+    <button class="next-button" disabled>NEXT</button>
+  </div>
+
+  <div class="footer">
+    Don’t have a GCash account? <a href="#">Register now</a>
+  </div>
+
+</body>
+</html>
