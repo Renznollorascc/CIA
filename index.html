@@ -1,120 +1,131 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Pay with GCash</title>
-  <style>
-    * {
-      box-sizing: border-box;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VeriFiles.page - Coming Soon</title>
+<style>
+  /* Basic Reset */
+  * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
 
-    body {
-      margin: 0;
-      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-      background-color: #f5f5f5;
-    }
+  /* Body Styles */
+  body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: linear-gradient(135deg, #6a11cb, #2575fc);
+    color: white;
+    text-align: center;
+    overflow: hidden;
+    position: relative;
+  }
 
-    .header {
-      background-color: #0456E5; /* updated blue color */
-      padding: 12px 16px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
+  /* Animated Background Circles */
+  .circle {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.1);
+    animation: float 6s infinite;
+  }
 
-    .header img {
-      height: 30px;
-    }
+  .circle:nth-child(1) { width: 200px; height: 200px; top: 10%; left: 15%; animation-duration: 7s; }
+  .circle:nth-child(2) { width: 300px; height: 300px; top: 60%; left: 70%; animation-duration: 8s; }
+  .circle:nth-child(3) { width: 150px; height: 150px; top: 40%; left: 40%; animation-duration: 5s; }
 
-    .container {
-      background-color: white;
-      border-radius: 12px;
-      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
-      padding: 30px 20px;
-      max-width: 400px;
-      width: 90%;
-      text-align: center;
-      margin: 30px auto;
-    }
+  @keyframes float {
+    0% { transform: translateY(0) translateX(0); }
+    50% { transform: translateY(-30px) translateX(20px); }
+    100% { transform: translateY(0) translateX(0); }
+  }
 
-    h1 {
-      font-size: 22px;
-      color: #0456E5;
-      margin-bottom: 8px;
-    }
+  /* Main Content */
+  .content {
+    z-index: 10;
+    animation: fadeIn 2s ease-in-out;
+  }
 
-    .ref {
-      font-size: 14px;
-      color: #333;
-      margin-bottom: 20px;
-    }
+  h1 {
+    font-size: 3rem;
+    margin-bottom: 20px;
+    letter-spacing: 2px;
+  }
 
-    .qr {
-      width: 100%;
-      max-width: 250px;
-      margin: 0 auto 20px;
-    }
+  p {
+    font-size: 1.2rem;
+    opacity: 0.8;
+  }
 
-    .loader {
-      display: flex;
-      justify-content: center;
-      gap: 8px;
-    }
+  /* Countdown */
+  .countdown {
+    margin-top: 40px;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    font-size: 1.5rem;
+  }
 
-    .loader span {
-      width: 10px;
-      height: 10px;
-      background: #0456E5;
-      border-radius: 50%;
-      animation: bounce 0.6s infinite alternate;
-    }
+  .countdown div {
+    background: rgba(255,255,255,0.2);
+    padding: 15px 20px;
+    border-radius: 10px;
+    min-width: 60px;
+  }
 
-    .loader span:nth-child(2) {
-      animation-delay: 0.2s;
-    }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
 
-    .loader span:nth-child(3) {
-      animation-delay: 0.4s;
-    }
-
-    @keyframes bounce {
-      to {
-        transform: translateY(-10px);
-        opacity: 0.6;
-      }
-    }
-
-    @media (max-width: 480px) {
-      .container {
-        padding: 20px 15px;
-        margin: 20px auto;
-      }
-
-      .qr {
-        max-width: 200px;
-      }
-
-      h1 {
-        font-size: 18px;
-      }
-    }
-  </style>
+</style>
 </head>
 <body>
-  <div class="header">
-    <img src="https://gcash.d13jr4j23hog1o.amplifyapp.com/assets/ph/gcash/img/gcash_logo.png" alt="GCash Logo" />
-  </div>
 
-  <div class="container">
-    <h1>Pay with GCash</h1>
-    <div class="ref">Ref No: EY5Q-8F26</div>
-    <img src="https://upload.wikimedia.org/wikipedia/commons/d/d0/QR_code_for_mobile_English_Wikipedia.svg" alt="GCash QR Code" class="qr" />
-    <div class="loader">
-      <span></span>
-      <span></span>
-      <span></span>
-    </div>
+<!-- Background Circles -->
+<div class="circle"></div>
+<div class="circle"></div>
+<div class="circle"></div>
+
+<div class="content">
+  <h1>VeriFiles.page</h1>
+  <p>We verify viral posts, expose misinformation, and deliver facts you can trust.</p>
+  <p>Coming Soon 🚀</p>
+
+  <div class="countdown">
+    <div id="days">00</div>
+    <div id="hours">00</div>
+    <div id="minutes">00</div>
+    <div id="seconds">00</div>
   </div>
+</div>
+
+<script>
+  // Countdown Timer
+  const countdownDate = new Date("June 1, 2026 00:00:00").getTime();
+
+  const updateCountdown = () => {
+    const now = new Date().getTime();
+    const distance = countdownDate - now;
+
+    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+    document.getElementById("days").textContent = String(days).padStart(2, "0");
+    document.getElementById("hours").textContent = String(hours).padStart(2, "0");
+    document.getElementById("minutes").textContent = String(minutes).padStart(2, "0");
+    document.getElementById("seconds").textContent = String(seconds).padStart(2, "0");
+
+    if (distance < 0) {
+      clearInterval(interval);
+      document.querySelector(".countdown").textContent = "We are live!";
+    }
+  };
+
+  const interval = setInterval(updateCountdown, 1000);
+  updateCountdown();
+</script>
+
 </body>
 </html>
