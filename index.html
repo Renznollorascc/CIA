@@ -1,131 +1,152 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>VeriFiles.page - Coming Soon</title>
-<style>
-  /* Basic Reset */
-  * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GHOST-TRACE // CLASSIFIED</title>
+    
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    
+    <link rel="stylesheet" href="css/style.css">
 
-  /* Body Styles */
-  body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background: linear-gradient(135deg, #6a11cb, #2575fc);
-    color: white;
-    text-align: center;
-    overflow: hidden;
-    position: relative;
-  }
+    <style>
+        :root {
+            --term-green: #0f3;
+            --term-bg: #050505;
+        }
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--term-bg);
+            color: var(--term-green);
+            font-family: 'Courier New', Courier, monospace;
+            overflow: hidden;
+        }
 
-  /* Animated Background Circles */
-  .circle {
-    position: absolute;
-    border-radius: 50%;
-    background: rgba(255,255,255,0.1);
-    animation: float 6s infinite;
-  }
+        /* --- THE LOCK SCREEN --- */
+        #gatekeeper {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            background: var(--term-bg);
+            text-align: center;
+        }
+        .glitch {
+            font-size: 2rem;
+            letter-spacing: 4px;
+            margin-bottom: 10px;
+            text-shadow: 0 0 5px var(--term-green);
+        }
+        #passphrase-input {
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid var(--term-green);
+            color: var(--term-green);
+            font-family: inherit;
+            font-size: 1.5rem;
+            text-align: center;
+            padding: 5px;
+            margin-top: 20px;
+            outline: none;
+            letter-spacing: 2px;
+        }
+        #passphrase-input:focus {
+            box-shadow: 0px 5px 5px -5px var(--term-green);
+        }
+        #error-log {
+            color: red;
+            margin-top: 15px;
+            opacity: 0;
+            transition: opacity 0.2s;
+            text-shadow: 0 0 5px red;
+        }
 
-  .circle:nth-child(1) { width: 200px; height: 200px; top: 10%; left: 15%; animation-duration: 7s; }
-  .circle:nth-child(2) { width: 300px; height: 300px; top: 60%; left: 70%; animation-duration: 8s; }
-  .circle:nth-child(3) { width: 150px; height: 150px; top: 40%; left: 40%; animation-duration: 5s; }
-
-  @keyframes float {
-    0% { transform: translateY(0) translateX(0); }
-    50% { transform: translateY(-30px) translateX(20px); }
-    100% { transform: translateY(0) translateX(0); }
-  }
-
-  /* Main Content */
-  .content {
-    z-index: 10;
-    animation: fadeIn 2s ease-in-out;
-  }
-
-  h1 {
-    font-size: 3rem;
-    margin-bottom: 20px;
-    letter-spacing: 2px;
-  }
-
-  p {
-    font-size: 1.2rem;
-    opacity: 0.8;
-  }
-
-  /* Countdown */
-  .countdown {
-    margin-top: 40px;
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-    font-size: 1.5rem;
-  }
-
-  .countdown div {
-    background: rgba(255,255,255,0.2);
-    padding: 15px 20px;
-    border-radius: 10px;
-    min-width: 60px;
-  }
-
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(-20px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-</style>
+        /* --- THE MAP (Hidden by default) --- */
+        #map-container {
+            width: 100vw;
+            height: 100vh;
+            display: none; /* Stays hidden until password is correct */
+        }
+        #ui-layer {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+            display: none;
+        }
+        .btn-drop {
+            background: var(--term-green);
+            color: black;
+            border: none;
+            padding: 10px 20px;
+            font-family: inherit;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 0 10px var(--term-green);
+        }
+        .btn-drop:hover {
+            background: white;
+            box-shadow: 0 0 15px white;
+        }
+    </style>
 </head>
 <body>
 
-<!-- Background Circles -->
-<div class="circle"></div>
-<div class="circle"></div>
-<div class="circle"></div>
+    <div id="gatekeeper">
+        <div class="glitch">SECURE CONNECTION ESTABLISHED</div>
+        <p>AWAITING AUTHORIZATION PROTOCOL...</p>
+        
+        <input type="password" id="passphrase-input" autocomplete="off" autofocus placeholder="ENTER KEY">
+        
+        <div id="error-log">[!] ACCESS DENIED. TRACE INITIATED.</div>
+    </div>
 
-<div class="content">
-  <h1>VeriFiles.page</h1>
-  <p>We verify viral posts, expose misinformation, and deliver facts you can trust.</p>
-  <p>Coming Soon 🚀</p>
+    <div id="map-container">
+        </div>
 
-  <div class="countdown">
-    <div id="days">00</div>
-    <div id="hours">00</div>
-    <div id="minutes">00</div>
-    <div id="seconds">00</div>
-  </div>
-</div>
+    <div id="ui-layer">
+        <button class="btn-drop" id="btn-initiate">[ INITIATE DEAD DROP ]</button>
+    </div>
 
-<script>
-  // Countdown Timer
-  const countdownDate = new Date("June 1, 2026 00:00:00").getTime();
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
-  const updateCountdown = () => {
-    const now = new Date().getTime();
-    const distance = countdownDate - now;
+    <script>
+        const gatekeeper = document.getElementById('gatekeeper');
+        const mapContainer = document.getElementById('map-container');
+        const uiLayer = document.getElementById('ui-layer');
+        const input = document.getElementById('passphrase-input');
+        const errorLog = document.getElementById('error-log');
 
-    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+        // Listen for the "Enter" key
+        input.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                if (this.value === 'theresnogod') {
+                    // CORRECT PASSWORD: Hide gatekeeper, show map
+                    gatekeeper.style.display = 'none';
+                    mapContainer.style.display = 'block';
+                    uiLayer.style.display = 'block';
+                    
+                    // Dispatch a custom event telling map.js to wake up
+                    window.dispatchEvent(new Event('systemUnlocked'));
+                } else {
+                    // WRONG PASSWORD: Flash error, clear input
+                    errorLog.style.opacity = '1';
+                    this.value = '';
+                    setTimeout(() => errorLog.style.opacity = '0', 2000);
+                }
+            }
+        });
+    </script>
 
-    document.getElementById("days").textContent = String(days).padStart(2, "0");
-    document.getElementById("hours").textContent = String(hours).padStart(2, "0");
-    document.getElementById("minutes").textContent = String(minutes).padStart(2, "0");
-    document.getElementById("seconds").textContent = String(seconds).padStart(2, "0");
-
-    if (distance < 0) {
-      clearInterval(interval);
-      document.querySelector(".countdown").textContent = "We are live!";
-    }
-  };
-
-  const interval = setInterval(updateCountdown, 1000);
-  updateCountdown();
-</script>
-
-</body>
+    </body>
 </html>
