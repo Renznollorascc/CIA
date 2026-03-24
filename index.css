@@ -1,0 +1,151 @@
+/* =========================================
+   GHOST-TRACE // GLOBAL VARIABLES
+   ========================================= */
+:root {
+    --bg-dark: #030303;
+    --neon-green: #00ff33;
+    --neon-red: #ff003c;
+    --text-muted: #888888;
+    --font-sys: 'Courier New', Courier, monospace;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body, html {
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--bg-dark);
+    font-family: var(--font-sys);
+    color: var(--neon-green);
+    overflow: hidden;
+}
+
+/* =========================================
+   THE MAP (Dark Mode Hack)
+   ========================================= */
+#map-container {
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+/* SECRET TRICK: Leaflet's default maps are bright and colorful. 
+  This filter inverts the colors and rotates the hue, turning 
+  standard maps into a dark, radar-like interface. 
+*/
+.leaflet-layer,
+.leaflet-control-zoom-in,
+.leaflet-control-zoom-out,
+.leaflet-control-attribution {
+    filter: invert(100%) hue-rotate(180deg) brightness(95%) contrast(90%);
+}
+
+/* Hide the Leaflet attribution logo to keep the immersion */
+.leaflet-control-attribution {
+    display: none !important;
+}
+
+
+/* =========================================
+   UI OVERLAY & BUTTONS
+   ========================================= */
+#ui-layer {
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000; /* Stays above the map */
+    pointer-events: none; /* Lets you click the map *around* the button */
+}
+
+.btn-drop {
+    pointer-events: auto; /* Makes the button clickable */
+    background: rgba(0, 255, 51, 0.1);
+    color: var(--neon-green);
+    border: 1px solid var(--neon-green);
+    padding: 12px 24px;
+    font-family: var(--font-sys);
+    font-size: 1rem;
+    font-weight: bold;
+    letter-spacing: 2px;
+    cursor: pointer;
+    backdrop-filter: blur(4px);
+    transition: all 0.2s ease-in-out;
+    box-shadow: 0 0 10px rgba(0, 255, 51, 0.2);
+}
+
+.btn-drop:hover {
+    background: var(--neon-green);
+    color: var(--bg-dark);
+    box-shadow: 0 0 20px var(--neon-green);
+}
+
+
+/* =========================================
+   CUSTOM MAP PINS (Glowing Nodes)
+   ========================================= */
+/* We will apply this class via JavaScript when adding a pin */
+.ghost-node {
+    width: 15px;
+    height: 15px;
+    background-color: var(--neon-green);
+    border-radius: 50%;
+    box-shadow: 0 0 10px var(--neon-green);
+    animation: pulse-green 2s infinite;
+}
+
+.ghost-node.encrypted {
+    background-color: var(--neon-red);
+    box-shadow: 0 0 10px var(--neon-red);
+    animation: pulse-red 2s infinite;
+}
+
+@keyframes pulse-green {
+    0% { box-shadow: 0 0 0 0 rgba(0, 255, 51, 0.7); }
+    70% { box-shadow: 0 0 0 15px rgba(0, 255, 51, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(0, 255, 51, 0); }
+}
+
+@keyframes pulse-red {
+    0% { box-shadow: 0 0 0 0 rgba(255, 0, 60, 0.7); }
+    70% { box-shadow: 0 0 0 15px rgba(255, 0, 60, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(255, 0, 60, 0); }
+}
+
+
+/* =========================================
+   DATA TERMINAL (Popups / Modals)
+   ========================================= */
+/* Styles for the Leaflet popups when you click a pin */
+.leaflet-popup-content-wrapper {
+    background: rgba(5, 5, 5, 0.9) !important;
+    border: 1px solid var(--neon-green);
+    border-radius: 0 !important;
+    box-shadow: 0 0 15px rgba(0, 255, 51, 0.3) !important;
+    color: var(--neon-green) !important;
+    font-family: var(--font-sys);
+}
+
+.leaflet-popup-tip {
+    background: rgba(5, 5, 5, 0.9) !important;
+    border: 1px solid var(--neon-green);
+}
+
+.terminal-input {
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid var(--text-muted);
+    color: var(--neon-green);
+    font-family: var(--font-sys);
+    width: 100%;
+    margin-top: 10px;
+    outline: none;
+}
+
+.terminal-input:focus {
+    border-bottom: 1px solid var(--neon-green);
+}
